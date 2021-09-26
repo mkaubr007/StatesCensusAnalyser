@@ -2,6 +2,7 @@ package com.biz.censusanalyser.service;
 
 import com.biz.censusanalyser.exception.CensusAnalyserException;
 import com.biz.censusanalyser.model.IndiaCensusCSV;
+import com.biz.censusanalyser.model.IndiaStateCodeCsv;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -37,6 +38,15 @@ public class CensusAnalyser {
     public int loadIndiaCensusData(Country india, String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             Iterator<IndiaCensusCSV> iterator = getCSVIterator(reader, IndiaCensusCSV.class);
+            return getCount(iterator);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+    public int loadIndiaStateCodeData(Country india,String csvFilePath) throws CensusAnalyserException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+            Iterator<IndiaStateCodeCsv> iterator = getCSVIterator(reader, IndiaStateCodeCsv.class);
             return getCount(iterator);
         } catch (IOException e) {
             System.out.println(e);
